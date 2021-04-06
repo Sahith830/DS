@@ -1,0 +1,110 @@
+class Node:
+    def __init__(self,data):
+        self.prev = None
+        self.data = data
+        self.next = None
+class DLL:
+    def __init__(self):
+        self.head = None
+ 
+    def displayForward(self):
+        t = self.head
+        while(not t == None):
+            print(t.data,end= ' ')
+            t = t.next
+        print()
+    def displayReverse(self):
+        t = self.head
+        while(t.next!=None):
+            t = t.next
+        while(t!=None):
+            print(t.data,end=' ')
+            t = t.prev
+        print()
+    def atBegin(self,data):
+        t = Node(data)
+        if(self.head!=None):
+            t.next = self.head
+            self.head.prev = t
+        self.head = t
+        self.displayForward()
+    def atEnd(self,data):
+        k = Node(data)
+        t = self.head
+        if(t==None):
+            self.atBegin(k)
+            return
+        else:
+            while(t.next!=None):
+                t = t.next
+            t.next = k
+            k.prev = t
+        self.displayForward()
+    def insertAfter(self,key,data):
+        k = Node(data)
+        t = self.head
+        while(t!=None and t.data!=key):
+            t = t.next
+        if(t!=None):
+            k.next = t.next
+            k.prev = t
+            t.next = k
+            k.next.prev = k
+        else:
+            print("Key not found ( Insert After ) not found in the Linked List ",key)
+    def insertBefore(self,key,data):
+        k = Node(data)
+        t = self.head
+        while(t!=None and t.data!=key):
+            t = t.next
+        if(t!=None):
+            t1 = t.prev
+            if(t1!=None):
+                k.prev = t1
+                k.next = t1.next
+                t1.next = k
+            else:
+                k.next = self.head
+                self.head = k
+            t.prev = k
+            
+        else:
+            print("Key not found ( Insert Before ) not found in the Linked List ",key)
+    def delete(self,key):
+        if(self.head == key):
+            self.head = self.head.next
+            self.head.prev = None
+        else:
+            t = self.head
+            while(t!=None and t.data!=key):
+                t = t.next
+            if(t!=None):
+                t1 = t.prev
+                if(t1!=None and t.next!=None):
+                    t.next.prev = t.prev
+                    t1.next = t.next
+                elif(t1==None):
+                    self.head = self.head.next
+                    self.head.prev = None
+                elif(t.next==None):
+                    t.prev.next = None
+            else:
+                print("Key not found ( Delete ) not found in the Linked List ",key)
+                    
+d = DLL()
+d.atBegin(10)
+d.atBegin(20)
+d.atBegin(30)
+d.atBegin(40)
+d.atBegin(50)
+d.atEnd(60)
+d.atEnd(70)
+d.insertAfter(60,65)
+d.insertBefore(10,5)
+d.insertBefore(50,80)
+d.displayForward()
+d.delete(80)
+d.delete(70)
+d.delete(10)
+d.displayForward()
+d.displayReverse()
