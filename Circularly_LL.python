@@ -1,0 +1,49 @@
+class Node:
+    def __init__(self,data):
+        self.prev = None
+        self.data = data
+        self.link = None
+class CLL:
+    def __init__(self):
+        self.head = None
+    def displayForward(self):
+        if(self.head == None):
+            print("Circularly Linked List is Empty")
+        else:
+            t = self.head
+            print(t.data,end=' ')
+            t = t.next
+            while(t!=self.head):
+                print(t.data,end=' ')
+                t = t.next
+        print()
+    def displayReverse(self):
+        if(self.head == None):
+            print("Circularly Linked List is Empty")
+        else:
+            t = self.head.prev
+            while(t!=self.head):
+                print(t.data,end=' ')
+                t = t.prev
+            print(t.data,end=' ')
+        print()
+    def atBegin(self,data):
+        k = Node(data)
+        t = self.head
+        if(t == None):
+            self.head = k
+            self.head.next = self.head
+            self.head.prev = self.head
+        else:
+            k.next = self.head
+            k.prev = self.head.prev
+            self.head.prev.next = k
+            self.head.prev = k
+            self.head = k       
+c = CLL()
+c.atBegin(10)
+c.atBegin(20)
+c.atBegin(30)
+c.atBegin(40)
+c.displayForward()
+c.displayReverse()
