@@ -39,7 +39,15 @@ class CLL:
             k.prev = self.head.prev
             self.head.prev.next = k
             self.head.prev = k
-            self.head = k       
+            self.head = k
+    def atEnd(self,data):
+        k = Node(data)
+        if(self.head!=None):
+            t = self.head.prev
+            k.next = self.head
+            k.prev = t
+            t.next = k
+            self.head.prev = k
 c = CLL()
 c.atBegin(10)
 c.atBegin(20)
