@@ -48,10 +48,84 @@ class CLL:
             k.prev = t
             t.next = k
             self.head.prev = k
+    def insertAfter(self,key,data):
+        k = Node(data)
+        if(self.head!=None):
+            t = self.head
+            if(key == t.data):
+                k.next = t.next
+                k.prev = t
+                t.next.prev = k
+                t.next = k
+                return
+            t = t.next
+            while(t!=self.head and t.data!=key):
+                t = t.next
+            if(t!=self.head):
+                k.next = t.next
+                k.prev = t
+                t.next.prev = k
+                t.next = k
+            else:
+                print("Key Not Found in INSERT AFTER , Please Try Again")
+    def insertBefore(self,key,data):
+        k = Node(data)
+        if(self.head != None):
+            t = self.head
+            if(key == t.data):
+                self.atBegin(data)
+                return
+            t = t.next
+            while(t!=self.head and t.data != key):
+                t = t.next
+            if(t!=self.head):
+                k.next = t
+                k.prev = t.prev
+                t.prev.next = k
+                t.prev = k
+            else:
+                print("Key Not Found in INSERT BEFORE , Please Try Again")
+    def delete(self,key):
+        if(self.head !=None):
+            t = self.head
+            if(t.data == key and t.next!=t):
+                t.prev.next = t.next
+                t.next.prev = t.prev
+                self.head = t.next
+                return
+            elif(t.data == key and t.next == t):
+                self.head = None
+                return
+            t = t.next
+            while(t!=self.head and t.data!= key):
+                t =t.next
+            if(t!=self.head):
+                t.prev.next = t.next
+                t.next.prev = t.prev
+            else:
+                print("Key Not Found in DELETE , Please Try Again")
 c = CLL()
 c.atBegin(10)
 c.atBegin(20)
 c.atBegin(30)
 c.atBegin(40)
+c.insertAfter(40,35)
+c.insertAfter(30,25)
+c.insertAfter(10,5)
+c.insertBefore(40,50)
+c.insertBefore(40,45)
+print("Before Deleting : ")
+c.displayForward()
+c.displayReverse()
+c.delete(5)
+c.delete(25)
+c.delete(35)
+c.delete(45)
+c.delete(50)
+c.delete(40)
+c.delete(30)
+c.delete(20)
+c.delete(10)
+print("After Deleting : ")
 c.displayForward()
 c.displayReverse()
