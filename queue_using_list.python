@@ -1,0 +1,28 @@
+class Queue:
+    def __init__(self):
+        self.queue = []
+    def enqueue(self,data):
+        self.queue.append(data)
+    def dequeue(self):
+        try:
+            return self.queue.pop(0)
+        except IndexError:
+            return "Queue UnderFlow"
+    def peek(self):
+        try:
+            return self.queue[0]
+        except IndexError:
+            return "Queue UnderFlow"
+q = Queue()
+q.enqueue(10)
+q.enqueue(20)
+q.enqueue(30)
+q.enqueue(40)
+print(q.dequeue())
+print(q.peek(),"is at front")
+print(q.dequeue())
+print(q.peek(),"is at front")
+print(q.dequeue())
+print(q.peek(),"is at front")
+print(q.dequeue())
+print(q.peek())
